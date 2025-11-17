@@ -5,50 +5,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>CORNELIUS AURELIUS — INVENTIONS • GODMODE EDITION</title>
+    <title>CORNELIUS AURELIUS — Official Invention Licensing Portal</title>
 
-    <!-- SEO DOMINATION -->
-    <meta name="description" content="Official Cornelius Aurelius Invention Archive — elite-level engineering including the WALK WRAP and future technologies. Cyberpunk-grade UI. High-authority SEO for Cornelius Aurelius.">
+    <!-- SEO ENHANCEMENT -->
+    <meta name="description" content="Official licensing and business portal for Cornelius Aurelius, world-class inventor and creator of the WALK WRAP. Investors, manufacturers and licensors welcome. New elite inventions coming soon.">
     <meta name="author" content="Cornelius Aurelius">
-    <meta name="keywords" content="Cornelius Aurelius, Cornelius Aurelius inventions, WALK WRAP, advanced inventions, engineering, innovation, Aurelius tech">
-
-    <!-- STRUCTURED DATA FOR SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Cornelius Aurelius",
-      "url": "https://cornelius-aurelius.github.io/CORNELIUS-AURELIUS-INVENTIONS/",
-      "jobTitle": "Inventor",
-      "knowsAbout": ["Engineering", "Inventions", "Technology", "Design"],
-      "owns": {
-        "@type": "CreativeWork",
-        "name": "WALK WRAP",
-        "url": "https://cornelius-aurelius.github.io/WALK-WRAP/"
-      }
-    }
-    </script>
+    <meta name="keywords" content="Cornelius Aurelius, inventor licensing, WALK WRAP, inventions, manufacturing, innovation, licensing deals">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { background: #000; overflow-x: hidden; color: #d4faff; font-family: Arial, sans-serif; }
 
-        body {
-            background: #000;
-            overflow-x: hidden;
-            height: 100%;
-            color: #d4faff;
-            font-family: Arial, sans-serif;
-        }
-
-        /* CUSTOM NEON CURSOR */
+        /* Neon Cursor */
         #cursor {
-            width: 18px;
-            height: 18px;
+            width: 18px; height: 18px;
             border: 3px solid #00eaff;
             border-radius: 50%;
             position: fixed;
@@ -59,47 +29,40 @@
             box-shadow: 0 0 12px #00eaff;
         }
 
-        /* PARALLAX BACKGROUND GRID */
+        /* Tron Grid BG */
         .grid {
             position: fixed;
-            width: 200%;
-            height: 200%;
-            background: repeating-linear-gradient(0deg, rgba(0, 200, 255, 0.2) 0px, transparent 2px, transparent 60px),
-                repeating-linear-gradient(90deg, rgba(0, 200, 255, 0.2) 0px, transparent 2px, transparent 60px);
+            width: 200%; height: 200%;
+            background: repeating-linear-gradient(0deg, rgba(0, 200, 255, 0.15) 0px, transparent 2px, transparent 60px),
+                        repeating-linear-gradient(90deg, rgba(0, 200, 255, 0.15) 0px, transparent 2px, transparent 60px);
             transform: perspective(800px) rotateX(60deg) translateY(200px);
             animation: gridmove 15s linear infinite;
             z-index: -10;
         }
-
         @keyframes gridmove {
             0% { transform: perspective(800px) rotateX(60deg) translateY(200px); }
             100% { transform: perspective(800px) rotateX(60deg) translateY(600px); }
         }
 
-        /* FLOATING NEON PARTICLES */
+        /* Floating particles */
         .particle {
             position: fixed;
-            width: 4px;
-            height: 4px;
-            background: #00eaff;
-            border-radius: 50%;
+            width: 4px; height: 4px;
+            background: #00eaff; border-radius: 50%;
             filter: blur(2px);
             animation: float 12s linear infinite;
             opacity: 0.7;
         }
-
         @keyframes float {
-            0% { transform: translateY(0); opacity: 0.2; }
+            0% { transform: translateY(0); opacity: 0.1; }
             50% { opacity: 1; }
             100% { transform: translateY(-120vh); opacity: 0.1; }
         }
 
-        /* HERO SECTION */
         header {
             text-align: center;
             padding: 120px 20px 70px;
         }
-
         header h1 {
             font-size: 3.5rem;
             color: #00eaff;
@@ -107,11 +70,7 @@
             letter-spacing: 3px;
             animation: glowIn 2.2s ease forwards;
         }
-
-        @keyframes glowIn {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes glowIn { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
 
         header p {
             margin-top: 15px;
@@ -119,18 +78,18 @@
             opacity: 0;
             animation: fadeIn 3s ease forwards 1.3s;
         }
+        @keyframes fadeIn { to { opacity: 1; } }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        .section-title {
+            color: #00eaff;
+            font-size: 2rem;
+            text-align: center;
+            margin: 30px 0 20px;
+            text-shadow: 0 0 10px #00eaff;
         }
 
-        /* INVENTION GRID */
-        .container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-
+        /* INVENTION SHOWCASE */
+        .container { padding: 20px; max-width: 1300px; margin: auto; }
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
@@ -138,41 +97,34 @@
         }
 
         .card {
-            background: rgba(0, 50, 70, 0.4);
+            background: rgba(0, 50, 70, 0.45);
             border: 1px solid #00eaff;
             border-radius: 12px;
             padding: 20px;
             text-align: center;
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
             transform-style: preserve-3d;
             transition: 0.4s;
             position: relative;
         }
-
         .card:hover {
-            transform: rotateY(14deg) scale(1.07);
-            box-shadow: 0 0 30px #00eaff;
+            transform: rotateY(10deg) scale(1.06);
+            box-shadow: 0 0 25px #00eaff;
         }
 
-        /* HOLOGRAM EFFECT */
+        /* Hologram border */
         .card::before {
             content: "";
             position: absolute;
-            top: -2px;
-            bottom: -2px;
-            left: -2px;
-            right: -2px;
+            top: -2px; bottom: -2px;
+            left: -2px; right: -2px;
             border-radius: 12px;
             background: linear-gradient(45deg, transparent, #00eaff, transparent);
             animation: holo 2s linear infinite;
-            opacity: 0.4;
+            opacity: 0.38;
             z-index: -1;
         }
-
-        @keyframes holo {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes holo { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         .card img {
             width: 100%;
@@ -187,30 +139,53 @@
             text-shadow: 0 0 8px #00eaff;
         }
 
-        .card a {
+        /* CTA */
+        .cta-box {
+            margin: 55px auto;
+            max-width: 900px;
+            background: rgba(0, 90, 120, 0.4);
+            border: 2px solid #00eaff;
+            padding: 35px;
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 25px #00eaff;
+        }
+
+        .cta-box h2 {
+            color: #00eaff;
+            font-size: 2.1rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #00eaff;
+        }
+
+        .cta-box p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
             display: inline-block;
-            margin-top: 12px;
-            padding: 10px 22px;
+            margin-top: 18px;
+            padding: 12px 28px;
             background: #00eaff;
             color: #000;
-            text-decoration: none;
-            border-radius: 6px;
+            font-size: 1.2rem;
             font-weight: bold;
+            border-radius: 6px;
+            text-decoration: none;
             transition: 0.25s;
         }
-
-        .card a:hover {
-            background: #009dc2;
-        }
+        .cta-btn:hover { background: #009dc2; }
 
         footer {
-            margin-top: 80px;
+            margin-top: 90px;
             padding: 30px;
             text-align: center;
             color: #00eaff;
             border-top: 2px solid #00eaff;
         }
-
     </style>
 </head>
 
@@ -219,9 +194,8 @@
 <div id="cursor"></div>
 <div class="grid"></div>
 
-<!-- PARTICLES -->
 <script>
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 60; i++) {
         let p = document.createElement("div");
         p.classList.add("particle");
         p.style.left = Math.random() * 100 + "vw";
@@ -230,7 +204,6 @@
         document.body.appendChild(p);
     }
 
-    // Magnetic cursor
     const cursor = document.getElementById("cursor");
     document.addEventListener("mousemove", e => {
         cursor.style.left = e.clientX + "px";
@@ -239,41 +212,58 @@
 </script>
 
 <header>
-    <h1>CORNELIUS AURELIUS INVENTIONS</h1>
-    <p>GODMODE OF GODMODE • Elite Engineering • Future Hyper-Intelligence</p>
+    <h1>CORNELIUS AURELIUS</h1>
+    <p>World-Class Inventor • Licensing, Investment & Manufacturing Partnerships</p>
 </header>
+
+<!-- FLAGSHIP INVENTION -->
+<h2 class="section-title">Flagship Invention — WALK WRAP</h2>
+<p style="text-align:center; font-size:1.1rem; opacity:0.85; margin-bottom:25px;">
+    Three unique product views of the WALK WRAP — engineered for mass-market adoption.
+</p>
 
 <div class="container">
     <div class="card-grid">
 
-        <!-- WALK WRAP -->
         <div class="card">
-            <img src="Untitled design.png" alt="WALK WRAP">
-            <h3>WALK WRAP</h3>
-            <p>Advanced ergonomic kinetic enhancement — designed by Cornelius Aurelius.</p>
-            <a href="https://cornelius-aurelius.github.io/WALK-WRAP/" target="_blank">Access</a>
-        </div>
-
-        <!-- FUTURE INVENTIONS -->
-        <div class="card">
-            <img src="Untitled design (1).png">
-            <h3>COMING SOON</h3>
-            <p>Reserved for future advanced Cornelius Aurelius technology.</p>
-            <a href="#">Locked</a>
+            <img src="Untitled design.png" alt="WALK WRAP View 1">
+            <h3>WALK WRAP — View 1</h3>
         </div>
 
         <div class="card">
-            <img src="Untitled design (2).png">
-            <h3>COMING SOON</h3>
-            <p>Future innovation placeholder — hidden until official release.</p>
-            <a href="#">Locked</a>
+            <img src="Untitled design (1).png" alt="WALK WRAP View 2">
+            <h3>WALK WRAP — View 2</h3>
+        </div>
+
+        <div class="card">
+            <img src="Untitled design (2).png" alt="WALK WRAP View 3">
+            <h3>WALK WRAP — View 3</h3>
         </div>
 
     </div>
 </div>
 
+<!-- CTA BOX -->
+<div class="cta-box">
+    <h2>Business, Licensing & Manufacturing Inquiries</h2>
+    <p>
+        Cornelius Aurelius is actively seeking strategic partners for licensing, mass production,
+        distribution, and investment opportunities.  
+        <br><br>
+        If you are an investor, manufacturer, or corporate partner, you may contact directly via the official licensing email.
+    </p>
+    <a class="cta-btn" href="mailto:138licensing@gmail.com">📩 Contact: 138licensing@gmail.com</a>
+</div>
+
+<!-- FUTURE INVENTIONS -->
+<h2 class="section-title">More Elite Inventions Coming Soon</h2>
+<p style="text-align:center; font-size:1.15rem; margin-top:10px; opacity:0.9;">
+    The WALK WRAP is only the beginning.  
+    New breakthrough technologies are currently in development.
+</p>
+
 <footer>
-    © CORNELIUS AURELIUS • All Rights Reserved •  
+    © CORNELIUS AURELIUS — All Rights Reserved •  
     Peace License: <a href="https://zenodo.org/records/17362534" target="_blank">Zenodo</a>
 </footer>
 
