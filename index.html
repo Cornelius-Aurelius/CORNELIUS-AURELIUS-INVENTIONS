@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>CORNELIUS AURELIUS — INVENTIONS • GODMODE EDITION</title>
+
+    <!-- SEO DOMINATION -->
+    <meta name="description" content="Official Cornelius Aurelius Invention Archive — elite-level engineering including the WALK WRAP and future technologies. Cyberpunk-grade UI. High-authority SEO for Cornelius Aurelius.">
+    <meta name="author" content="Cornelius Aurelius">
+    <meta name="keywords" content="Cornelius Aurelius, Cornelius Aurelius inventions, WALK WRAP, advanced inventions, engineering, innovation, Aurelius tech">
+
+    <!-- STRUCTURED DATA FOR SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Cornelius Aurelius",
+      "url": "https://cornelius-aurelius.github.io/CORNELIUS-AURELIUS-INVENTIONS/",
+      "jobTitle": "Inventor",
+      "knowsAbout": ["Engineering", "Inventions", "Technology", "Design"],
+      "owns": {
+        "@type": "CreativeWork",
+        "name": "WALK WRAP",
+        "url": "https://cornelius-aurelius.github.io/WALK-WRAP/"
+      }
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body {
+            background: #000;
+            overflow-x: hidden;
+            height: 100%;
+            color: #d4faff;
+            font-family: Arial, sans-serif;
+        }
+
+        /* CUSTOM NEON CURSOR */
+        #cursor {
+            width: 18px;
+            height: 18px;
+            border: 3px solid #00eaff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: 0.08s ease-out;
+            z-index: 9999;
+            box-shadow: 0 0 12px #00eaff;
+        }
+
+        /* PARALLAX BACKGROUND GRID */
+        .grid {
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(0deg, rgba(0, 200, 255, 0.2) 0px, transparent 2px, transparent 60px),
+                repeating-linear-gradient(90deg, rgba(0, 200, 255, 0.2) 0px, transparent 2px, transparent 60px);
+            transform: perspective(800px) rotateX(60deg) translateY(200px);
+            animation: gridmove 15s linear infinite;
+            z-index: -10;
+        }
+
+        @keyframes gridmove {
+            0% { transform: perspective(800px) rotateX(60deg) translateY(200px); }
+            100% { transform: perspective(800px) rotateX(60deg) translateY(600px); }
+        }
+
+        /* FLOATING NEON PARTICLES */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #00eaff;
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: float 12s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-120vh); opacity: 0.1; }
+        }
+
+        /* HERO SECTION */
+        header {
+            text-align: center;
+            padding: 120px 20px 70px;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            color: #00eaff;
+            text-shadow: 0 0 20px #00eaff;
+            letter-spacing: 3px;
+            animation: glowIn 2.2s ease forwards;
+        }
+
+        @keyframes glowIn {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        header p {
+            margin-top: 15px;
+            font-size: 1.3rem;
+            opacity: 0;
+            animation: fadeIn 3s ease forwards 1.3s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* INVENTION GRID */
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: rgba(0, 50, 70, 0.4);
+            border: 1px solid #00eaff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(6px);
+            transform-style: preserve-3d;
+            transition: 0.4s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: rotateY(14deg) scale(1.07);
+            box-shadow: 0 0 30px #00eaff;
+        }
+
+        /* HOLOGRAM EFFECT */
+        .card::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            bottom: -2px;
+            left: -2px;
+            right: -2px;
+            border-radius: 12px;
+            background: linear-gradient(45deg, transparent, #00eaff, transparent);
+            animation: holo 2s linear infinite;
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        @keyframes holo {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            border: 2px solid #00eaff;
+        }
+
+        .card h3 {
+            margin-top: 15px;
+            color: #00eaff;
+            font-size: 1.5rem;
+            text-shadow: 0 0 8px #00eaff;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 22px;
+            background: #00eaff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.25s;
+        }
+
+        .card a:hover {
+            background: #009dc2;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding: 30px;
+            text-align: center;
+            color: #00eaff;
+            border-top: 2px solid #00eaff;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div id="cursor"></div>
+<div class="grid"></div>
+
+<!-- PARTICLES -->
+<script>
+    for (let i = 0; i < 70; i++) {
+        let p = document.createElement("div");
+        p.classList.add("particle");
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.top = (Math.random() * 120 + 100) + "vh";
+        p.style.animationDelay = Math.random() * 10 + "s";
+        document.body.appendChild(p);
+    }
+
+    // Magnetic cursor
+    const cursor = document.getElementById("cursor");
+    document.addEventListener("mousemove", e => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+    });
+</script>
+
+<header>
+    <h1>CORNELIUS AURELIUS INVENTIONS</h1>
+    <p>GODMODE OF GODMODE • Elite Engineering • Future Hyper-Intelligence</p>
+</header>
+
+<div class="container">
+    <div class="card-grid">
+
+        <!-- WALK WRAP -->
+        <div class="card">
+            <img src="Untitled design.png" alt="WALK WRAP">
+            <h3>WALK WRAP</h3>
+            <p>Advanced ergonomic kinetic enhancement — designed by Cornelius Aurelius.</p>
+            <a href="https://cornelius-aurelius.github.io/WALK-WRAP/" target="_blank">Access</a>
+        </div>
+
+        <!-- FUTURE INVENTIONS -->
+        <div class="card">
+            <img src="Untitled design (1).png">
+            <h3>COMING SOON</h3>
+            <p>Reserved for future advanced Cornelius Aurelius technology.</p>
+            <a href="#">Locked</a>
+        </div>
+
+        <div class="card">
+            <img src="Untitled design (2).png">
+            <h3>COMING SOON</h3>
+            <p>Future innovation placeholder — hidden until official release.</p>
+            <a href="#">Locked</a>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    © CORNELIUS AURELIUS • All Rights Reserved •  
+    Peace License: <a href="https://zenodo.org/records/17362534" target="_blank">Zenodo</a>
+</footer>
+
+</body>
+</html>
