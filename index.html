@@ -5,16 +5,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>CORNELIUS AURELIUS — Official Invention Licensing Portal</title>
+    <title>CORNELIUS AURELIUS — Official Licensing & Inventions Portal</title>
 
-    <!-- SEO ENHANCEMENT -->
-    <meta name="description" content="Official licensing and business portal for Cornelius Aurelius, world-class inventor and creator of the WALK WRAP. Investors, manufacturers and licensors welcome. New elite inventions coming soon.">
+    <!-- SEO AUTHORITY BOOST -->
+    <meta name="description" content="Official licensing portal of Cornelius Aurelius — world-class inventor and creator of the WALK WRAP. Accepting investors, manufacturers, and licensing partners. New inventions on the way.">
     <meta name="author" content="Cornelius Aurelius">
-    <meta name="keywords" content="Cornelius Aurelius, inventor licensing, WALK WRAP, inventions, manufacturing, innovation, licensing deals">
+    <meta name="keywords" content="Cornelius Aurelius, WALK WRAP, inventor licensing, manufacturing, inventions, investment, innovation">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        body { background: #000; overflow-x: hidden; color: #d4faff; font-family: Arial, sans-serif; }
+        body { background: #000; color: #d4faff; font-family: Arial, sans-serif; overflow-x: hidden; }
 
         /* Neon Cursor */
         #cursor {
@@ -24,15 +24,16 @@
             position: fixed;
             pointer-events: none;
             transform: translate(-50%, -50%);
-            transition: 0.08s ease-out;
+            transition: 0.06s ease-out;
             z-index: 9999;
             box-shadow: 0 0 12px #00eaff;
         }
 
-        /* Tron Grid BG */
+        /* Tron Background Grid */
         .grid {
             position: fixed;
-            width: 200%; height: 200%;
+            width: 200%;
+            height: 200%;
             background: repeating-linear-gradient(0deg, rgba(0, 200, 255, 0.15) 0px, transparent 2px, transparent 60px),
                         repeating-linear-gradient(90deg, rgba(0, 200, 255, 0.15) 0px, transparent 2px, transparent 60px);
             transform: perspective(800px) rotateX(60deg) translateY(200px);
@@ -44,75 +45,78 @@
             100% { transform: perspective(800px) rotateX(60deg) translateY(600px); }
         }
 
-        /* Floating particles */
+        /* Neon particles */
         .particle {
             position: fixed;
             width: 4px; height: 4px;
-            background: #00eaff; border-radius: 50%;
+            background: #00eaff;
+            opacity: 0.75;
+            border-radius: 50%;
             filter: blur(2px);
             animation: float 12s linear infinite;
-            opacity: 0.7;
         }
         @keyframes float {
-            0% { transform: translateY(0); opacity: 0.1; }
+            0% { transform: translateY(0); opacity: 0.15; }
             50% { opacity: 1; }
-            100% { transform: translateY(-120vh); opacity: 0.1; }
+            100% { transform: translateY(-120vh); opacity: 0.15; }
         }
 
+        /* Header */
         header {
             text-align: center;
-            padding: 120px 20px 70px;
+            padding: 120px 20px 60px;
         }
         header h1 {
-            font-size: 3.5rem;
+            font-size: 3.7rem;
             color: #00eaff;
             text-shadow: 0 0 20px #00eaff;
-            letter-spacing: 3px;
-            animation: glowIn 2.2s ease forwards;
+            animation: fadeDown 1.8s ease forwards;
+            letter-spacing: 2px;
         }
-        @keyframes glowIn { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
-
+        @keyframes fadeDown {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
         header p {
-            margin-top: 15px;
-            font-size: 1.3rem;
             opacity: 0;
-            animation: fadeIn 3s ease forwards 1.3s;
+            animation: fadeIn 2s ease forwards 1.2s;
+            font-size: 1.25rem;
+            margin-top: 15px;
         }
         @keyframes fadeIn { to { opacity: 1; } }
 
         .section-title {
             color: #00eaff;
-            font-size: 2rem;
-            text-align: center;
-            margin: 30px 0 20px;
             text-shadow: 0 0 10px #00eaff;
+            text-align: center;
+            font-size: 2rem;
+            margin: 40px 0 10px;
         }
 
-        /* INVENTION SHOWCASE */
-        .container { padding: 20px; max-width: 1300px; margin: auto; }
+        .container { max-width: 1250px; margin: auto; padding: 20px; }
+
+        /* INVENTION CARDS */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
             gap: 40px;
         }
-
         .card {
-            background: rgba(0, 50, 70, 0.45);
+            background: rgba(0, 60, 80, 0.4);
             border: 1px solid #00eaff;
             border-radius: 12px;
             padding: 20px;
             text-align: center;
             backdrop-filter: blur(8px);
-            transform-style: preserve-3d;
-            transition: 0.4s;
+            transition: 0.3s;
             position: relative;
         }
         .card:hover {
-            transform: rotateY(10deg) scale(1.06);
+            transform: scale(1.06) rotateY(10deg);
             box-shadow: 0 0 25px #00eaff;
         }
 
-        /* Hologram border */
+        /* Hologram glow border */
         .card::before {
             content: "";
             position: absolute;
@@ -120,67 +124,62 @@
             left: -2px; right: -2px;
             border-radius: 12px;
             background: linear-gradient(45deg, transparent, #00eaff, transparent);
-            animation: holo 2s linear infinite;
-            opacity: 0.38;
+            animation: spin 2.3s linear infinite;
+            opacity: 0.35;
             z-index: -1;
         }
-        @keyframes holo { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         .card img {
             width: 100%;
             border-radius: 10px;
             border: 2px solid #00eaff;
         }
-
         .card h3 {
-            margin-top: 15px;
+            margin-top: 14px;
             color: #00eaff;
-            font-size: 1.5rem;
-            text-shadow: 0 0 8px #00eaff;
+            font-size: 1.4rem;
+            text-shadow: 0 0 6px #00eaff;
         }
 
         /* CTA */
         .cta-box {
-            margin: 55px auto;
             max-width: 900px;
-            background: rgba(0, 90, 120, 0.4);
+            margin: 60px auto;
+            background: rgba(0, 80, 110, 0.45);
             border: 2px solid #00eaff;
             padding: 35px;
             border-radius: 12px;
             text-align: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             box-shadow: 0 0 25px #00eaff;
         }
-
         .cta-box h2 {
             color: #00eaff;
             font-size: 2.1rem;
             margin-bottom: 15px;
             text-shadow: 0 0 10px #00eaff;
         }
-
         .cta-box p {
             font-size: 1.2rem;
             line-height: 1.6;
-            opacity: 0.9;
         }
-
         .cta-btn {
             display: inline-block;
-            margin-top: 18px;
+            margin-top: 20px;
             padding: 12px 28px;
             background: #00eaff;
             color: #000;
+            border-radius: 6px;
             font-size: 1.2rem;
             font-weight: bold;
-            border-radius: 6px;
             text-decoration: none;
             transition: 0.25s;
         }
         .cta-btn:hover { background: #009dc2; }
 
         footer {
-            margin-top: 90px;
+            margin-top: 80px;
             padding: 30px;
             text-align: center;
             color: #00eaff;
@@ -191,19 +190,22 @@
 
 <body>
 
+<!-- Cursor + Grid + Particles -->
 <div id="cursor"></div>
 <div class="grid"></div>
 
 <script>
-    for (let i = 0; i < 60; i++) {
+    // Particles
+    for (let i = 0; i < 65; i++) {
         let p = document.createElement("div");
         p.classList.add("particle");
         p.style.left = Math.random() * 100 + "vw";
         p.style.top = (Math.random() * 120 + 100) + "vh";
-        p.style.animationDelay = Math.random() * 10 + "s";
+        p.style.animationDelay = Math.random() * 12 + "s";
         document.body.appendChild(p);
     }
 
+    // Magnetic Cursor
     const cursor = document.getElementById("cursor");
     document.addEventListener("mousemove", e => {
         cursor.style.left = e.clientX + "px";
@@ -213,53 +215,52 @@
 
 <header>
     <h1>CORNELIUS AURELIUS</h1>
-    <p>World-Class Inventor • Licensing, Investment & Manufacturing Partnerships</p>
+    <p>World-Class Inventor • Licensing • Manufacturing • Investment Partnerships</p>
 </header>
 
 <!-- FLAGSHIP INVENTION -->
 <h2 class="section-title">Flagship Invention — WALK WRAP</h2>
-<p style="text-align:center; font-size:1.1rem; opacity:0.85; margin-bottom:25px;">
-    Three unique product views of the WALK WRAP — engineered for mass-market adoption.
+<p style="text-align:center; font-size:1.1rem; opacity:0.85;">
+    Three official product views — click any to access the full WALK WRAP site.
 </p>
 
 <div class="container">
     <div class="card-grid">
 
-        <div class="card">
+        <a href="https://cornelius-aurelius.github.io/WALK-WRAP/" target="_blank" class="card" style="text-decoration:none;">
             <img src="Untitled design.png" alt="WALK WRAP View 1">
             <h3>WALK WRAP — View 1</h3>
-        </div>
+        </a>
 
-        <div class="card">
+        <a href="https://cornelius-aurelius.github.io/WALK-WRAP/" target="_blank" class="card" style="text-decoration:none;">
             <img src="Untitled design (1).png" alt="WALK WRAP View 2">
             <h3>WALK WRAP — View 2</h3>
-        </div>
+        </a>
 
-        <div class="card">
+        <a href="https://cornelius-aurelius.github.io/WALK-WRAP/" target="_blank" class="card" style="text-decoration:none;">
             <img src="Untitled design (2).png" alt="WALK WRAP View 3">
             <h3>WALK WRAP — View 3</h3>
-        </div>
+        </a>
 
     </div>
 </div>
 
-<!-- CTA BOX -->
+<!-- CTA -->
 <div class="cta-box">
-    <h2>Business, Licensing & Manufacturing Inquiries</h2>
+    <h2>Business, Licensing & Manufacturing Opportunities</h2>
     <p>
-        Cornelius Aurelius is actively seeking strategic partners for licensing, mass production,
-        distribution, and investment opportunities.  
+        Cornelius Aurelius is actively seeking strategic partners for invention licensing,
+        manufacturing agreements, technology investment, and global product rollout.
         <br><br>
-        If you are an investor, manufacturer, or corporate partner, you may contact directly via the official licensing email.
+        Companies, investors, and manufacturers are invited to reach out directly.
     </p>
     <a class="cta-btn" href="mailto:138licensing@gmail.com">📩 Contact: 138licensing@gmail.com</a>
 </div>
 
 <!-- FUTURE INVENTIONS -->
 <h2 class="section-title">More Elite Inventions Coming Soon</h2>
-<p style="text-align:center; font-size:1.15rem; margin-top:10px; opacity:0.9;">
-    The WALK WRAP is only the beginning.  
-    New breakthrough technologies are currently in development.
+<p style="text-align:center; font-size:1.15rem; opacity:0.9; margin-bottom:40px;">
+    The WALK WRAP is the first of many upcoming innovations currently in development.
 </p>
 
 <footer>
