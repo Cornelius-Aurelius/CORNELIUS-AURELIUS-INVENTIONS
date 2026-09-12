@@ -26,9 +26,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Install Android SDK packages
-        run: |
-          yes | sdkmanager --licenses >/dev/null || true
-          sdkmanager 'platforms;android-37' 'build-tools;36.0.0'
+        run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
 
       - name: Set up Gradle 9.6
         uses: gradle/actions/setup-gradle@v4
@@ -43,6 +41,8 @@ jobs:
           base64 -d build-src/project.zip.b64 > build-src/project.zip
           echo 'f939709d4c23b8c768c616541863945510356d1a81d25d707308ee0e35e1f480  build-src/project.zip' | sha256sum -c -
           unzip -q build-src/project.zip -d build-src
+          sed -i 's/compileSdk = 37/compileSdk = 36/' build-src/WordChecker_Android/app/build.gradle.kts
+          sed -i 's/targetSdk = 37/targetSdk = 36/' build-src/WordChecker_Android/app/build.gradle.kts
 
       - name: Unit tests
         working-directory: build-src/WordChecker_Android
