@@ -36,6 +36,12 @@ jobs:
       - name: Restore and verify WordChecker source
         shell: bash
         run: |
+          echo 'ec81adbb12eb5e5a61fbf2d2c4fb258cbae631bf22a2f70a60bbbab1922b8972  wordchecker-build/parts/part00' | sha256sum -c -
+          echo '6b5e814327fcc6ea95b6ef22225cf31fac69d8f2ac1ae3c3e2768da50d1eca52  wordchecker-build/parts/part01' | sha256sum -c -
+          echo 'eb9c5efa2293306b94b8266cf40960b037e2c6d00e4ec4496af5f79d3d5554f6  wordchecker-build/parts/part02' | sha256sum -c -
+          echo '6e74a8d6fcb9f39ca02f237325bf9405852b358150fd724be9f97f9380f23316  wordchecker-build/parts/part03' | sha256sum -c -
+          echo 'ada5a4dcc5f7a5db529c4e8862b5e5c6bc3ae7cf7b99cf67b0999d57de01053c  wordchecker-build/parts/part04' | sha256sum -c -
+          echo '6e517a0dd7fabec992b3fc85c172e40352fd95e7d904e3884aae43b7d76e7ea3  wordchecker-build/parts/part05' | sha256sum -c -
           mkdir -p build-src
           cat wordchecker-build/parts/part00 wordchecker-build/parts/part01 wordchecker-build/parts/part02 wordchecker-build/parts/part03 wordchecker-build/parts/part04 wordchecker-build/parts/part05 > build-src/project.zip.b64
           base64 -d build-src/project.zip.b64 > build-src/project.zip
