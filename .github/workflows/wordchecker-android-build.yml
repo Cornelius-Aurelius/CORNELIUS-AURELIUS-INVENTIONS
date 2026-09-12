@@ -4,7 +4,7 @@ on:
   push:
     branches: [wordchecker-android-build]
     paths:
-      - 'wordchecker-v02/**'
+      - 'wordchecker-v03-src/**'
       - '.github/workflows/wordchecker-android-build.yml'
   workflow_dispatch:
 
@@ -33,42 +33,23 @@ jobs:
         with:
           gradle-version: '9.6.0'
 
-      - name: Restore and verify WordChecker v0.2 source
-        shell: bash
-        run: |
-          echo '5465bc3f8401999972f7095d20a9efd7500bc7c74e5f695d0e2d588f5ad251bf  wordchecker-v02/parts/part00' | sha256sum -c -
-          echo '49b0fccbed415f01c1bf70db2cd56cee690e6996e3b27615e9cf8062c50233e0  wordchecker-v02/repair/part01a' | sha256sum -c -
-          echo 'cf964aa5d891c36ec7de4129ef98dca168d2fcdb940e6f4e60a7ce4c39226d53  wordchecker-v02/repair/part01b' | sha256sum -c -
-          echo 'fd13b6cfae0ba2d3959bf1a500bf21c8436c98b9b78c49729a9575be801fbd05  wordchecker-v02/repair/part01c' | sha256sum -c -
-          echo '6c918e6922b0a5e440103ad45ccb4ac8c4209086e47a5ad466431832773ded31  wordchecker-v02/parts/part02' | sha256sum -c -
-          echo 'de5a81c919682135b137f4ccaedf975b4fece7ddf98a5f63876e01a13f9dfc96  wordchecker-v02/parts/part03' | sha256sum -c -
-          echo '0d230bdb80562b3b74d72afe6b6fa97520d1fdc3d30041d7fbf71f0c84491fc7  wordchecker-v02/parts/part04' | sha256sum -c -
-          echo 'd7c8f5f7cff0d11de1b3b6c908ade707227db189d099c8db009d889cbdbf814a  wordchecker-v02/parts/part05' | sha256sum -c -
-          echo 'd2540b557d5798673feae66decec9d83ad325ad2c59c3ecaee73a394fa8dcfc8  wordchecker-v02/parts/part06' | sha256sum -c -
-          mkdir -p build-v02
-          cat wordchecker-v02/parts/part00 wordchecker-v02/repair/part01a wordchecker-v02/repair/part01b wordchecker-v02/repair/part01c wordchecker-v02/parts/part02 wordchecker-v02/parts/part03 wordchecker-v02/parts/part04 wordchecker-v02/parts/part05 wordchecker-v02/parts/part06 > build-v02/project.zip.b64
-          echo '1e947a698932c6b49332350c42b40d0b5e88bf9ea87b3b9b475159079fa2dd24  build-v02/project.zip.b64' | sha256sum -c -
-          base64 -d build-v02/project.zip.b64 > build-v02/project.zip
-          echo 'fe4723318b39791ebc58c9a397fa1754e45d0386fbf35884ae69860b27e1d98d  build-v02/project.zip' | sha256sum -c -
-          unzip -q build-v02/project.zip -d build-v02
-
       - name: Unit tests
-        working-directory: build-v02/WordChecker_Android_v0.2
+        working-directory: wordchecker-v03-src
         run: gradle --no-daemon testDebugUnitTest
 
       - name: Build debug APK
-        working-directory: build-v02/WordChecker_Android_v0.2
+        working-directory: wordchecker-v03-src
         run: gradle --no-daemon assembleDebug
 
       - name: Collect APK
         run: |
           mkdir -p output
-          cp build-v02/WordChecker_Android_v0.2/app/build/outputs/apk/debug/app-debug.apk output/WordChecker-0.2.0-debug.apk
-          sha256sum output/WordChecker-0.2.0-debug.apk > output/WordChecker-0.2.0-debug.apk.sha256
+          cp wordchecker-v03-src/app/build/outputs/apk/debug/app-debug.apk output/WordChecker-0.3.0-debug.apk
+          sha256sum output/WordChecker-0.3.0-debug.apk > output/WordChecker-0.3.0-debug.apk.sha256
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: WordChecker-v0.2-Android-APK
+          name: WordChecker-v0.3-Android-APK
           path: output/
           if-no-files-found: error
