@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WordChecker</string>
+    <string name="ime_name">WordChecker Keyboard</string>
+    <string name="ime_subtype_en">English (WordChecker)</string>
+</resources>
