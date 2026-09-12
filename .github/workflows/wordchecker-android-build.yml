@@ -33,6 +33,9 @@ jobs:
         with:
           gradle-version: '9.6.0'
 
+      - name: Apply v0.3 Android compatibility fix
+        run: sed -i 's/ScrollView\.LayoutParams/FrameLayout.LayoutParams/g' wordchecker-v03-src/app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
+
       - name: Unit tests
         working-directory: wordchecker-v03-src
         run: gradle --no-daemon testDebugUnitTest
