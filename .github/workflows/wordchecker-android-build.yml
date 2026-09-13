@@ -81,6 +81,21 @@ jobs:
           cp ../wordchecker-v031-patch/exact/SpellTextEngine.kt \
             app/src/main/java/com/cornelius/wordchecker/core/SpellTextEngine.kt
 
+          # Fix Kotlin escaping for the double-quote long-press symbol entry.
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt')
+          lines = p.read_text().splitlines()
+          found = 0
+          for i, line in enumerate(lines):
+              if 'to listOf' in line and '“' in line and '”' in line and '„' in line:
+                  lines[i] = '            "\\\"" to listOf("\\\"", "“", "”", "„"),'
+                  found += 1
+          if found != 1:
+              raise SystemExit(f'expected one quote-symbol entry, found {found}')
+          p.write_text('\n'.join(lines) + '\n')
+          PY
+
           sed -i 's/versionCode = 3/versionCode = 4/' app/build.gradle.kts
           sed -i 's/versionName = "0.3.0-prototype"/versionName = "0.3.1-prototype"/' app/build.gradle.kts
 
