@@ -107,7 +107,7 @@ jobs:
           gzip -dc /tmp/wc034.patch.gz > /tmp/wc034.patch
           echo '530a5b4de9d7256f385290b33a31c3f79647abc9300d48d293bf57074f757de8  /tmp/wc034.patch' | sha256sum -c -
           cd build-v033
-          patch -p4 < /tmp/wc034.patch
+          patch -p5 < /tmp/wc034.patch
           grep -q 'versionCode = 7' app/build.gradle.kts
           grep -q 'versionName = "0.3.4-fast-features"' app/build.gradle.kts
           grep -q 'SPELL_REQUEST_DELAY_MS = 90L' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
