@@ -7,6 +7,7 @@ on:
       - 'wordchecker-v031-patch/**'
       - 'wordchecker-v032-patch/**'
       - 'wordchecker-v033-patch/**'
+      - 'wordchecker-v034/**'
       - '.github/workflows/wordchecker-android-build.yml'
   workflow_dispatch:
 
@@ -97,6 +98,23 @@ jobs:
           grep -q 'SPEED_SURFACE = true' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
           grep -q 'SPEED_DIAGNOSTIC = true' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
 
+      - name: Apply v0.3.4 fast-feature patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '7a69f511ade0ff0fbd7e3845c844e4cf5fb5b5f49d059aac2c435576d954fa92  wordchecker-v034/wordchecker-v034.patch.gz.b64' | sha256sum -c -
+          base64 -d wordchecker-v034/wordchecker-v034.patch.gz.b64 > /tmp/wc034.patch.gz
+          gzip -dc /tmp/wc034.patch.gz > /tmp/wc034.patch
+          echo '530a5b4de9d7256f385290b33a31c3f79647abc9300d48d293bf57074f757de8  /tmp/wc034.patch' | sha256sum -c -
+          cd build-v033
+          patch -p4 < /tmp/wc034.patch
+          grep -q 'versionCode = 7' app/build.gradle.kts
+          grep -q 'versionName = "0.3.4-fast-features"' app/build.gradle.kts
+          grep -q 'SPELL_REQUEST_DELAY_MS = 90L' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
+          grep -q 'longPressAlternatives = LONG_PRESS_SYMBOLS' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
+          ! grep -q 'SPEED_DIAGNOSTIC' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
+          grep -q 'onReplaceCommittedText' app/src/main/java/com/cornelius/wordchecker/ime/FastKeyboardSurface.kt
+
       - name: Unit tests
         working-directory: build-v033
         run: gradle --no-daemon testDebugUnitTest
@@ -108,12 +126,12 @@ jobs:
       - name: Collect APK
         run: |
           mkdir -p output
-          cp build-v033/app/build/outputs/apk/debug/app-debug.apk output/WordChecker-0.3.3-speed-core-debug.apk
-          sha256sum output/WordChecker-0.3.3-speed-core-debug.apk > output/WordChecker-0.3.3-speed-core-debug.apk.sha256
+          cp build-v033/app/build/outputs/apk/debug/app-debug.apk output/WordChecker-0.3.4-fast-features-debug.apk
+          sha256sum output/WordChecker-0.3.4-fast-features-debug.apk > output/WordChecker-0.3.4-fast-features-debug.apk.sha256
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: WordChecker-v0.3.3-Speed-Core-APK
+          name: WordChecker-v0.3.4-Fast-Features-APK
           path: output/
           if-no-files-found: error
