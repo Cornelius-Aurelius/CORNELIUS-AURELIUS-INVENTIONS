@@ -91,7 +91,7 @@ jobs:
           grep -q 'FrameLayout.LayoutParams' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
           grep -q 'spaceHandler' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
           grep -q 'showSymbolAlternatives' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
-          grep -q 'text = "ABC"' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
+          grep -q 'specialTextKey("ABC"' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
           ! grep -q '"ill" to listOf' app/src/main/java/com/cornelius/wordchecker/core/SpellTextEngine.kt
 
       - name: Unit tests
