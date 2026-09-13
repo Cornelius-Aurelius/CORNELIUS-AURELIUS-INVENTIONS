@@ -6,6 +6,7 @@ on:
     paths:
       - 'wordchecker-v031-patch/**'
       - 'wordchecker-v032-patch/**'
+      - 'wordchecker-v033-patch/**'
       - '.github/workflows/wordchecker-android-build.yml'
   workflow_dispatch:
 
@@ -34,49 +35,25 @@ jobs:
         with:
           gradle-version: '9.6.0'
 
-      - name: Restore and verify v0.3.1 performance patch
+      - name: Reconstruct v0.3.1 base
         shell: bash
         run: |
           set -euo pipefail
-          echo '0a47468b2ad503270ab23371effed03b1ece7e9e153615de9d7a1e2979423f6c  wordchecker-v031-patch/parts/part00' | sha256sum -c -
-          echo '8dcb6582ead02ce087c3c2b60116a07d085f7f520299c2ff2f0f38eb09cb312e  wordchecker-v031-patch/parts/part01' | sha256sum -c -
-          echo '927d56edc12c1541830b6d6421e336b4ba71cd16b6cfa5951168ea4336af8a16  wordchecker-v031-patch/parts/part02' | sha256sum -c -
-          echo '98bf6d235887a4798b4e17abafe557f559a71f1a18b6053f1c5e677d2f042ef9  wordchecker-v031-patch/parts/part03' | sha256sum -c -
           cat wordchecker-v031-patch/parts/part00 wordchecker-v031-patch/parts/part01 wordchecker-v031-patch/parts/part02 wordchecker-v031-patch/parts/part03 > /tmp/wc031.patch.gz.b64
-          echo 'e637efe6da5be3303ccf220c5f5ad361e65d7bfbcef605451eacc82858569ef8  /tmp/wc031.patch.gz.b64' | sha256sum -c -
           base64 -d /tmp/wc031.patch.gz.b64 > /tmp/wc031.patch.gz
-          echo 'b3bc105d798ea6b55aa98c9c0770444a1ba755e4e63edd0a35376640098a5289  /tmp/wc031.patch.gz' | sha256sum -c -
           gzip -dc /tmp/wc031.patch.gz > /tmp/wc031.patch
-          echo 'b270704421853d94827f9d8b348bd107e66aa5a7960f0a34fa0e38cc6afeeaee  /tmp/wc031.patch' | sha256sum -c -
-          echo '3261e4448437527c044cfd47bc61b8a6cf300c3b15aa142b2fd5d368cda77357  wordchecker-v031-patch/exact/SafeDeleteEngine.kt' | sha256sum -c -
-          echo 'f736ca55a892888ff0683962ba49047d6b7d1647da048687ad8eeb5985052f93  wordchecker-v031-patch/exact/SpellTextEngine.kt' | sha256sum -c -
-
-      - name: Build v0.3.1 source tree
-        shell: bash
-        run: |
-          set -euo pipefail
-          cp -R wordchecker-v03-src build-v031
-
-          sed -i 's/ScrollView\.LayoutParams/FrameLayout.LayoutParams/g' \
-            build-v031/app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
-
+          cp -R wordchecker-v03-src build-v033
+          sed -i 's/ScrollView\.LayoutParams/FrameLayout.LayoutParams/g' build-v033/app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
           awk '
             /^diff -ruN/ {
-              skip = ($0 ~ /app\/build.gradle.kts/ ||
-                      $0 ~ /SafeDeleteEngine.kt/ ||
-                      $0 ~ /SpellTextEngine.kt/)
+              skip = ($0 ~ /app\/build.gradle.kts/ || $0 ~ /SafeDeleteEngine.kt/ || $0 ~ /SpellTextEngine.kt/)
             }
             !skip { print }
           ' /tmp/wc031.patch > /tmp/wc031-filtered.patch
-
-          cd build-v031
+          cd build-v033
           patch -p4 < /tmp/wc031-filtered.patch
-
-          cp ../wordchecker-v031-patch/exact/SafeDeleteEngine.kt \
-            app/src/main/java/com/cornelius/wordchecker/core/SafeDeleteEngine.kt
-          cp ../wordchecker-v031-patch/exact/SpellTextEngine.kt \
-            app/src/main/java/com/cornelius/wordchecker/core/SpellTextEngine.kt
-
+          cp ../wordchecker-v031-patch/exact/SafeDeleteEngine.kt app/src/main/java/com/cornelius/wordchecker/core/SafeDeleteEngine.kt
+          cp ../wordchecker-v031-patch/exact/SpellTextEngine.kt app/src/main/java/com/cornelius/wordchecker/core/SpellTextEngine.kt
           python3 - <<'PY'
           from pathlib import Path
           p = Path('app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt')
@@ -90,51 +67,53 @@ jobs:
               raise SystemExit(f'expected one quote-symbol entry, found {found}')
           p.write_text('\n'.join(lines) + '\n')
           PY
-
           sed -i 's/versionCode = 3/versionCode = 4/' app/build.gradle.kts
           sed -i 's/versionName = "0.3.0-prototype"/versionName = "0.3.1-prototype"/' app/build.gradle.kts
-
-          echo '3261e4448437527c044cfd47bc61b8a6cf300c3b15aa142b2fd5d368cda77357  app/src/main/java/com/cornelius/wordchecker/core/SafeDeleteEngine.kt' | sha256sum -c -
-          echo 'f736ca55a892888ff0683962ba49047d6b7d1647da048687ad8eeb5985052f93  app/src/main/java/com/cornelius/wordchecker/core/SpellTextEngine.kt' | sha256sum -c -
-          sha256sum app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
 
       - name: Apply v0.3.2 latency patch
         shell: bash
         run: |
           set -euo pipefail
-          echo '0110130edf5f2b323244bb37db534bc5d498978194c21c6538bc13e00e245466  wordchecker-v032-patch/wordchecker-v032.patch.gz.b64' | sha256sum -c -
           base64 -d wordchecker-v032-patch/wordchecker-v032.patch.gz.b64 > /tmp/wc032.patch.gz
           gzip -dc /tmp/wc032.patch.gz > /tmp/wc032.patch
-          echo '401f1efaae16352410c519ab9678f601d00f342f4602d8e9e60e91c2c36bbaad  /tmp/wc032.patch' | sha256sum -c -
-          cd build-v031
+          cd build-v033
           patch -p1 < /tmp/wc032.patch
-          sha256sum app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
-          echo 'b30c2326473272011832220a0d35181abf310818339a482a8b175460f1fe010f  app/build.gradle.kts' | sha256sum -c -
           grep -q 'versionCode = 5' app/build.gradle.kts
           grep -q 'versionName = "0.3.2-prototype"' app/build.gradle.kts
-          grep -q 'Fast-path: emit printable letters on ACTION_DOWN' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
-          grep -q 'commitSpaceOnDown' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
-          grep -q 'finishSpaceBoundary' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
-          grep -q 'backspaceOnce(checkSelection = false)' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
-          grep -q 'hapticPending' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
+
+      - name: Apply v0.3.3 single-surface speed patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'dec539dcfaa0f4e6dc80518907b5b1aed7b8f3b7fcff055ff39b167b8fe0e79c  wordchecker-v033-patch/wordchecker-v033.patch.gz.b64' | sha256sum -c -
+          base64 -d wordchecker-v033-patch/wordchecker-v033.patch.gz.b64 > /tmp/wc033.patch.gz
+          gzip -dc /tmp/wc033.patch.gz > /tmp/wc033.patch
+          echo '996f300b81b921592143d73359c86201d75d8c8129d24a93cf3ecd54d738b1da  /tmp/wc033.patch' | sha256sum -c -
+          cd build-v033
+          patch -p1 < /tmp/wc033.patch
+          grep -q 'versionCode = 6' app/build.gradle.kts
+          grep -q 'versionName = "0.3.3-speed-core"' app/build.gradle.kts
+          test -f app/src/main/java/com/cornelius/wordchecker/ime/FastKeyboardSurface.kt
+          grep -q 'SPEED_SURFACE = true' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
+          grep -q 'SPEED_DIAGNOSTIC = true' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
 
       - name: Unit tests
-        working-directory: build-v031
+        working-directory: build-v033
         run: gradle --no-daemon testDebugUnitTest
 
       - name: Build debug APK
-        working-directory: build-v031
+        working-directory: build-v033
         run: gradle --no-daemon assembleDebug
 
       - name: Collect APK
         run: |
           mkdir -p output
-          cp build-v031/app/build/outputs/apk/debug/app-debug.apk output/WordChecker-0.3.2-debug.apk
-          sha256sum output/WordChecker-0.3.2-debug.apk > output/WordChecker-0.3.2-debug.apk.sha256
+          cp build-v033/app/build/outputs/apk/debug/app-debug.apk output/WordChecker-0.3.3-speed-core-debug.apk
+          sha256sum output/WordChecker-0.3.3-speed-core-debug.apk > output/WordChecker-0.3.3-speed-core-debug.apk.sha256
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: WordChecker-v0.3.2-Android-APK
+          name: WordChecker-v0.3.3-Speed-Core-APK
           path: output/
           if-no-files-found: error
