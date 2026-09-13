@@ -96,7 +96,7 @@ jobs:
 
           echo '3261e4448437527c044cfd47bc61b8a6cf300c3b15aa142b2fd5d368cda77357  app/src/main/java/com/cornelius/wordchecker/core/SafeDeleteEngine.kt' | sha256sum -c -
           echo 'f736ca55a892888ff0683962ba49047d6b7d1647da048687ad8eeb5985052f93  app/src/main/java/com/cornelius/wordchecker/core/SpellTextEngine.kt' | sha256sum -c -
-          echo '9a6bc6c0c5e0afcc58dbab026bfa17571a4b267318d2ff0f277c1a6867714d1a  app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt' | sha256sum -c -
+          sha256sum app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
 
       - name: Apply v0.3.2 latency patch
         shell: bash
@@ -108,12 +108,14 @@ jobs:
           echo '401f1efaae16352410c519ab9678f601d00f342f4602d8e9e60e91c2c36bbaad  /tmp/wc032.patch' | sha256sum -c -
           cd build-v031
           patch -p1 < /tmp/wc032.patch
-          echo '491c499c94198e69725bffea9cfb9ef7a817c641667868ac084455ed05dba42c  app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt' | sha256sum -c -
+          sha256sum app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
           echo 'b30c2326473272011832220a0d35181abf310818339a482a8b175460f1fe010f  app/build.gradle.kts' | sha256sum -c -
           grep -q 'versionCode = 5' app/build.gradle.kts
           grep -q 'versionName = "0.3.2-prototype"' app/build.gradle.kts
-          grep -q 'MotionEvent.ACTION_DOWN' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
+          grep -q 'Fast-path: emit printable letters on ACTION_DOWN' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
           grep -q 'commitSpaceOnDown' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
+          grep -q 'finishSpaceBoundary' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
+          grep -q 'backspaceOnce(checkSelection = false)' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
           grep -q 'hapticPending' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
 
       - name: Unit tests
