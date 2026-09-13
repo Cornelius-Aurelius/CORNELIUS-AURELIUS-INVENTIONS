@@ -4,7 +4,7 @@ on:
   push:
     branches: [wordchecker-android-build]
     paths:
-      - 'wordchecker-v03-src/**'
+      - 'wordchecker-v031-patch/**'
       - '.github/workflows/wordchecker-android-build.yml'
   workflow_dispatch:
 
@@ -33,26 +33,52 @@ jobs:
         with:
           gradle-version: '9.6.0'
 
-      - name: Apply v0.3 Android compatibility fix
-        run: sed -i 's/ScrollView\.LayoutParams/FrameLayout.LayoutParams/g' wordchecker-v03-src/app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
+      - name: Restore and verify v0.3.1 performance patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '0a47468b2ad503270ab23371effed03b1ece7e9e153615de9d7a1e2979423f6c  wordchecker-v031-patch/parts/part00' | sha256sum -c -
+          echo '8dcb6582ead02ce087c3c2b60116a07d085f7f520299c2ff2f0f38eb09cb312e  wordchecker-v031-patch/parts/part01' | sha256sum -c -
+          echo '927d56edc12c1541830b6d6421e336b4ba71cd16b6cfa5951168ea4336af8a16  wordchecker-v031-patch/parts/part02' | sha256sum -c -
+          echo '98bf6d235887a4798b4e17abafe557f559a71f1a18b6053f1c5e677d2f042ef9  wordchecker-v031-patch/parts/part03' | sha256sum -c -
+          cat wordchecker-v031-patch/parts/part00 wordchecker-v031-patch/parts/part01 wordchecker-v031-patch/parts/part02 wordchecker-v031-patch/parts/part03 > /tmp/wc031.patch.gz.b64
+          echo 'e637efe6da5be3303ccf220c5f5ad361e65d7bfbcef605451eacc82858569ef8  /tmp/wc031.patch.gz.b64' | sha256sum -c -
+          base64 -d /tmp/wc031.patch.gz.b64 > /tmp/wc031.patch.gz
+          echo 'b3bc105d798ea6b55aa98c9c0770444a1ba755e4e63edd0a35376640098a5289  /tmp/wc031.patch.gz' | sha256sum -c -
+          gzip -dc /tmp/wc031.patch.gz > /tmp/wc031.patch
+          echo 'b270704421853d94827f9d8b348bd107e66aa5a7960f0a34fa0e38cc6afeeaee  /tmp/wc031.patch' | sha256sum -c -
+
+      - name: Build v0.3.1 source tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp -R wordchecker-v03-src build-v031
+          awk '/^diff -ruN .*MainActivity.kt/{p=1} p' /tmp/wc031.patch > /tmp/wc031-nobuild.patch
+          cd build-v031
+          patch -p4 < /tmp/wc031-nobuild.patch
+          sed -i 's/versionCode = 3/versionCode = 4/' app/build.gradle.kts
+          sed -i 's/versionName = "0.3.0-prototype"/versionName = "0.3.1-prototype"/' app/build.gradle.kts
+          grep -q 'versionCode = 4' app/build.gradle.kts
+          grep -q 'versionName = "0.3.1-prototype"' app/build.gradle.kts
+          grep -q 'FrameLayout.LayoutParams' app/src/main/java/com/cornelius/wordchecker/ime/WordCheckerImeService.kt
 
       - name: Unit tests
-        working-directory: wordchecker-v03-src
+        working-directory: build-v031
         run: gradle --no-daemon testDebugUnitTest
 
       - name: Build debug APK
-        working-directory: wordchecker-v03-src
+        working-directory: build-v031
         run: gradle --no-daemon assembleDebug
 
       - name: Collect APK
         run: |
           mkdir -p output
-          cp wordchecker-v03-src/app/build/outputs/apk/debug/app-debug.apk output/WordChecker-0.3.0-debug.apk
-          sha256sum output/WordChecker-0.3.0-debug.apk > output/WordChecker-0.3.0-debug.apk.sha256
+          cp build-v031/app/build/outputs/apk/debug/app-debug.apk output/WordChecker-0.3.1-debug.apk
+          sha256sum output/WordChecker-0.3.1-debug.apk > output/WordChecker-0.3.1-debug.apk.sha256
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: WordChecker-v0.3-Android-APK
+          name: WordChecker-v0.3.1-Android-APK
           path: output/
           if-no-files-found: error
